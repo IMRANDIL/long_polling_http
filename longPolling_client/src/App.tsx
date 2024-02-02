@@ -1,12 +1,13 @@
 
 import './App.css'
+import LongPolling from './components/LongPolling'
 
 function App() {
 
 
   return (
     <>
-     <div>Hi ali</div>
+     <LongPolling/>
     </>
   )
 }
