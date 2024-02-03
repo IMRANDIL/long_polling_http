@@ -1,0 +1,50 @@
+Short polling is a simple technique where the client regularly sends requests to the server at fixed intervals to check for updates. Here's a basic example using Node.js and React:
+
+Server-Side (Node.js with Express):
+
+const express = require('express');
+const app = express();
+
+let data = 'Initial data';
+
+app.get('/api/data', (req, res) => {
+  res.json({ data });
+});
+
+app.listen(3001, () => {
+  console.log('Server is running on port 3001');
+});
+
+
+
+>..................................................................................>
+
+Client-Side (React):
+
+
+import React, { useState, useEffect } from 'react';
+
+const ShortPollingExample = () => {
+  const [data, setData] = useState('Loading...');
+
+  const fetchData = async () => {
+    const response = await fetch('http://localhost:3001/api/data');
+    const result = await response.json();
+    setData(result.data);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(fetchData, 1000); // Poll every 1 second
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div>
+      <h1>Short Polling Example</h1>
+      <p>Data from the server: {data}</p>
+    </div>
+  );
+};
+
+export default ShortPollingExample;
